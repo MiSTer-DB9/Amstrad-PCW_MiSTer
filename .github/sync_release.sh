@@ -4,7 +4,7 @@
 set -euo pipefail
 
 UPSTREAM_REPO="https://github.com/MiSTer-devel/Amstrad-PCW_MiSTer.git"
-CORE_NAME="PCW"
+CORE_NAME="Amstrad-PCW"
 MAIN_BRANCH="master"
 
 echo "Fetching upstream:"
