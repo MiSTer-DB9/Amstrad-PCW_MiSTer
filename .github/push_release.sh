@@ -3,7 +3,7 @@
 
 set -euo pipefail
 
-CORE_NAME="PCW"
+CORE_NAME="Amstrad-PCW"
 MAIN_BRANCH="master"
 COMPILATION_OUTPUT="output_files/Amstrad-PCW.rbf"
 
