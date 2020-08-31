@@ -216,7 +216,6 @@ wire [21:0] gamma_bus;
 wire [15:0] joystick_0_USB, joystick_1_USB;
 wire LED;
 
-hps_io #(.STRLEN(($size(CONF_STR)>>3) ), .WIDE(0), .VDNUM(2)) hps_io
 
 // F2 F1 U D L R 
 wire [31:0] joystick_0 = joydb_1ena ? (OSD_STATUS? 32'b000000 : {joydb_1[5:0]}) : joystick_0_USB;
@@ -254,6 +253,7 @@ joy_db15 joy_db15
 );
 
 
+hps_io #(.STRLEN(($size(CONF_STR)>>3) ), .WIDE(0), .VDNUM(2)) hps_io
 (
 	.clk_sys(clk_sys),
 	.HPS_BUS(HPS_BUS),
