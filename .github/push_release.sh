@@ -5,7 +5,7 @@ set -euo pipefail
 
 CORE_NAME="Amstrad-PCW"
 MAIN_BRANCH="master"
-COMPILATION_OUTPUT="output_files/Amstrad-PCW.rbf"
+COMPILATION_OUTPUT="output_files/PCW.rbf"
 
 if [[ "${FORCED:-false}" != "true" ]] && [[ "$(git log -n 1 --pretty=format:%an)" == "The CI/CD Bot" ]] ; then
     echo "The CI/CD Bot doesn't deliver a new release."
