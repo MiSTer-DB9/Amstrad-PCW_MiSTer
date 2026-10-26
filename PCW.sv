@@ -14,7 +14,7 @@ module emu
 	input         RESET,
 
 	//Must be passed to hps_io module
-	inout  [48:0] HPS_BUS,
+	inout  [45:0] HPS_BUS,
 
 	//Base video clock. Usually equals to CLK_SYS.
 	output        CLK_VIDEO,
@@ -44,6 +44,12 @@ module emu
 	output        HDMI_FREEZE,
 	output        HDMI_BLACKOUT,
 	output        HDMI_BOB_DEINT,
+
+	input   [5:0] LFB_FMT,
+	input  [31:0] LFB_BASE,
+	input  [11:0] LFB_WIDTH,
+	input  [11:0] LFB_HEIGHT,
+	input  [13:0] LFB_STRIDE,
 
 `ifdef MISTER_FB
 	// Use framebuffer in DDRAM
@@ -265,7 +271,7 @@ assign BUTTONS = 0;
 //assign VIDEO_ARX = 4; //status[13] ? 4 : (status[12] ? 20 : 11);
 //assign VIDEO_ARY = 3; //status[13] ? 3 : (status[12] ? 17 : 10);
 
-assign AUDIO_S = 1;
+assign AUDIO_S = 0;
 assign AUDIO_MIX = 0;
 
 assign LED_DISK  = LED;				/* later add disk motor on/off */
@@ -522,9 +528,9 @@ video_mixer #( .GAMMA(1)) video_mixer
 );
 
 wire  [13:0] audiomix_l, audiomix_r;
-// One spare bit at the top so the sum stays inside the positive half of a signed 16
-// bit sample.  Shifting by two instead would overflow into negative on loud passages.
-assign AUDIO_L={1'b0,audiomix_l,1'b0};
-assign AUDIO_R={1'b0,audiomix_r,1'b0};
+// Unsigned samples, as in the original core: the whole 14-bit range fits shifted by two,
+// so there is no overflow and no 6 dB loss. The framework removes the DC offset.
+assign AUDIO_L={audiomix_l,2'b00};
+assign AUDIO_R={audiomix_r,2'b00};
 
 endmodule
